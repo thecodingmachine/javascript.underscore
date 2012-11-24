@@ -3,7 +3,7 @@
     "description": "This package contains the Underscore javascript library, along a Mouf installer file to add Underscore easily in your Mouf project.",
     "keywords": ["javascript", "mouf", "underscore", "underscorejs"],
     "homepage": "https://github.com/thecodingmachine/javascript.underscore",
-    "type": "library",
+    "type": "mouf-library",
     "license": "MIT",
     "authors": [
         {
