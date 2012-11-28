@@ -1,29 +1,28 @@
 <?php
 // First, let's request the install utilities
-require_once '../../../../mouf/actions/InstallUtils.php';
+require_once __DIR__."/../../autoload.php";
+
+use Mouf\Html\Utils\WebLibraryManager\WebLibraryInstaller;
+use Mouf\Actions\InstallUtils;
+use Mouf\MoufManager;
 
 // Let's init Mouf
 InstallUtils::init(InstallUtils::$INIT_APP);
 
 // Let's create the instances
 $moufManager = MoufManager::getMoufManager();
-if (!$moufManager->instanceExists("javascript.underscore.debug")) {
-	$instance = $moufManager->createInstance("WebLibrary");
-	$instance->setName("javascript.underscore.debug");
-	$instance->getProperty("jsFiles")->setValue(array("vendor/mouf/javascript.underscore/lib/underscore.js"));	
-}
-if (!$moufManager->instanceExists("javascript.underscore")) {
-	$instance = $moufManager->createInstance("WebLibrary");
-	$instance->setName("javascript.underscore");
-	$instance->getProperty("jsFiles")->setValue(array("vendor/mouf/javascript.underscore/lib/underscore-min.js"));
-}
 
-if (!$moufManager->instanceExists("defaultWebLibraryManager")) {
-	$webLibraryManager = $moufManager->getInstanceDescriptor("defaultWebLibraryManager");
-	$values = $webLibraryManager->getProperty("webLibraries")->getValue();
-	$values[] = $instance;
-	$webLibraryManager->getProperty("webLibraries")->setValue($values);
-}
+WebLibraryInstaller::installLibrary("javascript.underscore.debug",
+	array(
+	'vendor/mouf/javascript.underscore/lib/underscore.js'
+	), array(),	array(), false
+);
+
+WebLibraryInstaller::installLibrary("javascript.underscore",
+array(
+'vendor/mouf/javascript.underscore/lib/underscore-min.js'
+		), array(),	array(), true
+);
 
 // Let's rewrite the MoufComponents.php file to save the component
 $moufManager->rewriteMouf();
