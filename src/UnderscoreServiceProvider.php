@@ -12,14 +12,13 @@ use TheCodingMachine\Funky\ServiceProvider;
 class UnderscoreServiceProvider extends ServiceProvider
 {
     /**
-     * @Factory(name="jQueryFileTreeWebLibrary", tags={@Tag(name="webLibraries", priority=0.0)})
+     * @Factory(name="underscoreWebLibrary", tags={@Tag(name="webLibraries", priority=0.0)})
      */
-    public static function createWebLibrary(ContainerInterface $container): WebLibrary
+    public static function createWebLibrary(): WebLibrary
     {
         return new WebLibrary(array(
             'vendor/mouf/javascript.underscore/lib/underscore.js'
         ),
-            array(),
-            $container->get('root_url'));
+            array());
     }
 }
